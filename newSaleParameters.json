@@ -1,0 +1,14 @@
+{
+  "SaleName": "Civil",
+  "TOTAL_SALE_CAP": "200000", 
+  "MIN_CONTRIBUTION": "0.1",
+  "MIN_THRESHOLD": "6000",
+  "MAX_TOKENS": "500000000",
+  "CLOSING_DURATION": "28",
+  "VAULT_INITIAL_AMOUNT": "100",
+  "VAULT_DISBURSEMENT_AMOUNT": "10",
+  "START_TIME": "100000000",
+  "WALLET": "0x",
+  "TokenSymbol": "CVL",
+  "TokenDecimals": "18"
+}

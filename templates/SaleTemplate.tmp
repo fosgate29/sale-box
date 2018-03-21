@@ -1,0 +1,50 @@
+pragma solidity 0.4.19;
+
+import "@tokenfoundry/sale-contracts/contracts/Sale.sol";
+
+import "./<%= SaleName %>Token.sol";
+
+contract CivilSale is Sale {
+    uint256 public constant TOTAL_SALE_CAP = <%= TOTAL_SALE_CAP %> ether;
+    uint256 public constant MIN_CONTRIBUTION = <%= MIN_CONTRIBUTION %> ether;
+    uint256 public constant MIN_THRESHOLD = <%= MIN_THRESHOLD %> ether;
+    uint256 public constant MAX_TOKENS = <%= MAX_TOKENS %>;
+
+    uint256 public constant CLOSING_DURATION = <%= CLOSING_DURATION %> days;
+    uint256 public constant VAULT_INITIAL_AMOUNT = <%= VAULT_INITIAL_AMOUNT %> ether;
+    uint256 public constant VAULT_DISBURSEMENT_AMOUNT = <%= VAULT_DISBURSEMENT_AMOUNT %> ether;
+
+    uint256 public constant START_TIME = <%= START_TIME %>;
+
+    address public constant WALLET = <%= WALLET %>;
+
+    function CivilSale(address whitelistAdmin) 
+        Sale(
+            TOTAL_SALE_CAP,
+            MIN_CONTRIBUTION,
+            MIN_THRESHOLD,
+            MAX_TOKENS,
+            whitelistAdmin,
+            WALLET,
+            CLOSING_DURATION,
+            VAULT_INITIAL_AMOUNT,
+            VAULT_DISBURSEMENT_AMOUNT,
+            START_TIME
+        ) 
+        public 
+    {
+        
+    }
+
+    function createToken(uint256 _maxTokens) internal returns (Token) {
+        return new <%= SaleName %>Token(_maxTokens);
+    }
+ 
+    function getDisbursements() internal pure returns(Disbursement[] disbursements) {
+        disbursements = new Disbursement[](3);
+        disbursements[0] = Disbursement(0, MAX_TOKENS.mul(2).div(100), 1 years);
+        disbursements[1] = Disbursement(1, MAX_TOKENS.mul(2).div(100), 1 years);
+        disbursements[2] = Disbursement(2, MAX_TOKENS.mul(2).div(100), 1 years);
+    }
+
+}
