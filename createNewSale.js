@@ -19,7 +19,8 @@ var saleSourceCode = ejs.compile(saleTemplate)({
   VAULT_INITIAL_AMOUNT: newSaleParameters.VAULT_INITIAL_AMOUNT,
   VAULT_DISBURSEMENT_AMOUNT: newSaleParameters.VAULT_DISBURSEMENT_AMOUNT,
   START_TIME: newSaleParameters.START_TIME,
-  WALLET: newSaleParameters.WALLET
+  WALLET: newSaleParameters.WALLET,
+  DisbursementsNumbers: newSaleParameters.DisbursementsNumbers
 });
 
 fs.writeFileSync('./contracts/'+newSaleParameters.SaleName+'Sale.sol', saleSourceCode);
@@ -29,7 +30,7 @@ var tokenTemplate  = read(join(__dirname, '/templates/TokenTemplate.tmp'), 'utf8
 var tokenSourceCode = ejs.compile(tokenTemplate)({
   SaleName: newSaleParameters.SaleName,
   TokenSymbol: newSaleParameters.TokenSymbol,
-  TokenDecimals: newSaleParameters.TokenDecimals,
+  TokenDecimals: newSaleParameters.TokenDecimals
 });
 
 fs.writeFileSync('./contracts/'+newSaleParameters.SaleName+'Token.sol', tokenSourceCode);

@@ -41,10 +41,9 @@ contract CivilSale is Sale {
     }
  
     function getDisbursements() internal pure returns(Disbursement[] disbursements) {
-        disbursements = new Disbursement[](3);
-        disbursements[0] = Disbursement(0, MAX_TOKENS.mul(2).div(100), 1 years);
-        disbursements[1] = Disbursement(1, MAX_TOKENS.mul(2).div(100), 1 years);
-        disbursements[2] = Disbursement(2, MAX_TOKENS.mul(2).div(100), 1 years);
+        disbursements = new Disbursement[](<%= DisbursementsNumbers %>);
+        <% for (i = 0; i < DisbursementsNumbers; i++) { %>disbursements[<%= i %>] = Disbursement(<%= i %>, MAX_TOKENS.mul(2).div(100), 1 years);
+        <% } %>
     }
 
 }

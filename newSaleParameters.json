@@ -10,5 +10,6 @@
   "START_TIME": "100000000",
   "WALLET": "0x",
   "TokenSymbol": "CVL",
-  "TokenDecimals": "18"
+  "TokenDecimals": "18",
+  "DisbursementsNumbers": "3"
 }
