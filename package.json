@@ -1,60 +1,11 @@
 {
-  "name": "@tokenfoundry/sale-contracts",
-  "version": "1.0.5",
-  "description": "Code for the new token foundry token and sale base contracts.",
-  "repository": "https://github.com/tokenfoundry/sale-contracts.git",
+  "name": "civil-sale",
+  "version": "0.0.1",
+  "repository": "git@github.com:tokenfoundry/civil-sale.git",
   "license": "MIT",
-  "scripts": {
-    "lint": "eslint .",
-    "compile": "truffle compile",
-    "coverage": "solidity-coverage",
-    "coverage-ci": "solidity-coverage && cat coverage/lcov.info | coveralls",
-    "test": "truffle test",
-    "check-sale-storage": "truffle exec scripts/checkSaleStorage.js",
-    "generate-wallet": "node ./scripts/generateWallet.js"
-  },
-  "directories": {
-    "test": "test"
-  },
   "dependencies": {
-    "@tokenfoundry/state-machine": "0.2.4",
-    "@tokenfoundry/token-contracts": "0.2.5",
-    "zeppelin-solidity": "1.7.0"
-  },
-  "devDependencies": {
-    "babel-eslint": "^8.1.2",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "babel-preset-stage-3": "^6.24.1",
-    "babel-register": "^6.26.0",
-    "bluebird": "^3.5.1",
-    "coveralls": "^3.0.0",
-    "eslint": "^4.14.0",
-    "eslint-config-standard": "^11.0.0-beta.0",
-    "eslint-plugin-babel": "^4.1.2",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "ethereumjs-util": "^5.1.3",
-    "ethereumjs-wallet": "^0.6.0",
-    "ethers": "^2.2.3",
-    "inquirer": "^5.0.0",
-    "papaparse": "^4.3.6",
-    "solidity-coverage": "^0.4.7",
-    "solium": "^1.1.5",
-    "truffle": "^4.0.6",
-    "truffle-hdwallet-provider": "0.0.3",
-    "web3-provider-engine": "^13.5.0",
-    "yargs": "^11.0.0"
-  },
-  "babel": {
-    "presets": [
-      "env"
-    ]
-  },
-  "yargs": {
-    "parse-numbers": false
+    "@tokenfoundry/sale-contracts": "0.2.2",
+    "@tokenfoundry/token-contracts": "0.2.2",
+    "ejs": "^2.5.7"
   }
 }
