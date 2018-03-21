@@ -7,8 +7,10 @@ var join = require('path').join;
 var jsonData = read(join(__dirname, '/newSaleParameters.json'), 'utf8');
 var newSaleParameters = JSON.parse(jsonData);
 
+/*
+* Create Sale File
+*/
 var saleTemplate  = read(join(__dirname, '/templates/SaleTemplate.tmp'), 'utf8');
-
 var saleSourceCode = ejs.compile(saleTemplate)({
   SaleName: newSaleParameters.SaleName,
   TOTAL_SALE_CAP: newSaleParameters.TOTAL_SALE_CAP,
@@ -25,8 +27,10 @@ var saleSourceCode = ejs.compile(saleTemplate)({
 
 fs.writeFileSync('./contracts/'+newSaleParameters.SaleName+'Sale.sol', saleSourceCode);
 
+/*
+* Create Token File
+*/
 var tokenTemplate  = read(join(__dirname, '/templates/TokenTemplate.tmp'), 'utf8');
-
 var tokenSourceCode = ejs.compile(tokenTemplate)({
   SaleName: newSaleParameters.SaleName,
   TokenSymbol: newSaleParameters.TokenSymbol,
@@ -34,3 +38,13 @@ var tokenSourceCode = ejs.compile(tokenTemplate)({
 });
 
 fs.writeFileSync('./contracts/'+newSaleParameters.SaleName+'Token.sol', tokenSourceCode);
+
+/*
+* Create Migrations File
+*/
+var migrationsTemplate  = read(join(__dirname, '/templates/2_deploy_contracts.tmp'), 'utf8');
+var migrationsFile = ejs.compile(migrationsTemplate)({
+  SaleName: newSaleParameters.SaleName
+});
+
+fs.writeFileSync('./migrations/2_deploy_contracts.js', migrationsFile);
