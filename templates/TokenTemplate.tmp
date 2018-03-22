@@ -7,7 +7,7 @@ contract <%= SaleName %>Token is Token, DetailedERC20 {
 
     function <%= SaleName %>Token(uint256 _maxTokens) 
         Token(_maxTokens)
-        DetailedERC20("/<%= SaleName %> Token", "<%= TokenSymbol %>", <%= TokenDecimals %>) 
+        DetailedERC20("<%= SaleName %> Token", "<%= TokenSymbol %>", <%= TokenDecimals %>) 
         public 
     {
     }

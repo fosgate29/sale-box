@@ -1,11 +1,13 @@
 {
-  "name": "civil-sale",
+  "name": "sale-box",
   "version": "0.0.1",
-  "repository": "git@github.com:tokenfoundry/civil-sale.git",
+  "repository": "git@github.com:tokenfoundry/sale-box.git",
   "license": "MIT",
   "dependencies": {
     "@tokenfoundry/sale-contracts": "0.2.2",
     "@tokenfoundry/token-contracts": "0.2.2",
-    "ejs": "^2.5.7"
+    "ejs": "^2.5.7",
+    "inquirer": "^5.1.0",
+    "web3": "^1.0.0-beta.33"
   }
 }

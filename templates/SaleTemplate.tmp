@@ -4,7 +4,7 @@ import "@tokenfoundry/sale-contracts/contracts/Sale.sol";
 
 import "./<%= SaleName %>Token.sol";
 
-contract CivilSale is Sale {
+contract <%= SaleName %>Sale is Sale {
     uint256 public constant TOTAL_SALE_CAP = <%= TOTAL_SALE_CAP %> ether;
     uint256 public constant MIN_CONTRIBUTION = <%= MIN_CONTRIBUTION %> ether;
     uint256 public constant MIN_THRESHOLD = <%= MIN_THRESHOLD %> ether;
@@ -18,7 +18,7 @@ contract CivilSale is Sale {
 
     address public constant WALLET = <%= WALLET %>;
 
-    function CivilSale(address whitelistAdmin) 
+    function <%= SaleName %>Sale(address whitelistAdmin) 
         Sale(
             TOTAL_SALE_CAP,
             MIN_CONTRIBUTION,
