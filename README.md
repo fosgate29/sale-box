@@ -1,8 +1,8 @@
 
 ### Overview
 
-This box comes with everything you need to create a new Token Sale.
-
+It is a Truffle Box and it comes with everything you need to create a new Token Sale. Here you can find more information about installing [Truffle](http://truffleframework.com/) if you don't have it installed.
+ 
 ### Installing
 
 Run this command to create a new Truffle project with this box:
@@ -12,11 +12,11 @@ truffle unbox tokenfoundry/sale-box
 
 After it is installed, run script to create Sale and Token smart contracts:
 ```
-nodejs createNewSale.js
+yarn createNewSale.js
 ```
 
-Script will prompt for data that is necessary for each Sale Token.
- - `SaleName`: Name of the token. Example: Civil, Dether.
+Script will prompt for data that is necessary for each Sale Token. Here they are:
+ - `SaleName`: Name of the token. Example: Civil, Dether - The Sale contract would be CivilSale.sol
  - `TokenSymbol`: Capital letters representing the token. Example: CVL, VPK.
  - `TokenDecimals`: Token Decimals. It can be from 0 to 18.
  - `TOTAL_SALE_CAP`: Total Sale Cap (in ether). The maximum amount of ether the sale can raise.
@@ -30,7 +30,9 @@ Script will prompt for data that is necessary for each Sale Token.
  - `WALLET`: Wallet. The address of the project team\'s wallet.
  - `DisbursementsNumbers`: Number of disbursements instance Sale will have.
 
-### Attention: If you execute the script for a second time, it will overwrite the files it created for the 1st time. And script makes some checks to see values entered are valid, but it is responsability of who is creating the Sale to make sure values are correct.
+### Attention: 
+	- For everytime you execute the script, it will overwrite the files it created before.
+	- script makes some checks to see values entered are valid, but it is responsability of who is creating the Sale to make sure values are correct.
 
 After the script is executed, 4 new files are created:
  - xxxxSale.sol
