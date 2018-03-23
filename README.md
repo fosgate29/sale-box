@@ -26,7 +26,7 @@ Script will prompt for data that is necessary for each Sale Token. Here they are
  - `CLOSING_DURATION`: Closing duration (in days). How much time, from the end of the sale, the project team has to deploy their testnet contracts.
  - `VAULT_INITIAL_AMOUNT`: Vault initial amount (in ether). The amount of ether that will be sent to the project\'s wallet once the sale is successful.
  - `VAULT_DISBURSEMENT_AMOUNT`: Vault disbursement amount (in ether): the amount of ether that can be withrawn from the vault by the project team each month following (if the sale is successful and the project team deploys the testnet contracts).
- - `START_TIME`: Start time (in timestamp). The sale starts at this timestamp.
+ - `START_TIME`: Start time (in timestamp). The sale starts at this timestamp. You can use this service to generate the timestamp [https://www.unixtimestamp.com/index.php].
  - `WALLET`: Wallet. The address of the project team\'s wallet.
  - `DisbursementsNumbers`: Number of disbursements instance Sale will have.
 
