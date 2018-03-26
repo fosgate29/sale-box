@@ -1,0 +1,20 @@
+{
+  "SaleName": "Civil",
+  "TokenSymbol": "CVL",
+  "TokenDecimals": "18",
+  "TOTAL_SALE_CAP": "200000", 
+  "MIN_CONTRIBUTION": "0.1",
+  "MIN_THRESHOLD": "6000",
+  "MAX_TOKENS": "500000000",
+  "CLOSING_DURATION": "28",
+  "VAULT_INITIAL_AMOUNT": "100",
+  "VAULT_DISBURSEMENT_AMOUNT": "10",
+  "START_TIME": "100000000",
+  "WALLET": "0x10a6eeb986b9094f0a131a28b0c57d2e66eecc3a",
+  "Disbursements": 
+        [
+          { "beneficiaryAddress": "0x2", "percent": "20", "duration": "2 years"},
+          { "beneficiaryAddress": "0x23", "percent": "23", "duration": "150021222555"},
+          { "beneficiaryAddress": "0x24", "percent": "2", "duration": "1 weeks"}
+        ]        
+}
