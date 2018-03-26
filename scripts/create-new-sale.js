@@ -207,7 +207,7 @@ function checkParameters(_jsonFormat) {
 
   inquirer.prompt({ type: 'confirm', name: 'dataIsCorrect', message: 'Is data correct?' , default: false }).then(answer => {
     if (answer.dataIsCorrect) {
-      fs.writeFileSync('./newSaleParameters.json', jsonFormat);
+      fs.writeFileSync('./scripts/newSaleParameters.json', jsonFormat);
       createSaleFiles();
     } else {
       console.log('You should restart script.');
@@ -220,13 +220,13 @@ function checkParameters(_jsonFormat) {
 */
 function createSaleFiles(){
 
-  const jsonData = read(join(__dirname, '/newSaleParameters.json'), 'utf8');
+  const jsonData = read(join(__dirname, 'newSaleParameters.json'), 'utf8');
   const newSaleParameters = JSON.parse(jsonData);
 
   /*
   * Create Sale File
   */
-  const saleTemplate  = read(join(__dirname, '/templates/SaleTemplate.tmp'), 'utf8');
+  const saleTemplate  = read(join(__dirname, '../templates/SaleTemplate.tmp'), 'utf8');
   const saleSourceCode = ejs.compile(saleTemplate)({
     SaleName: newSaleParameters.SaleName,
     TOTAL_SALE_CAP: newSaleParameters.TOTAL_SALE_CAP,
@@ -246,7 +246,7 @@ function createSaleFiles(){
   /*
   * Create Token File
   */
-  const tokenTemplate  = read(join(__dirname, '/templates/TokenTemplate.tmp'), 'utf8');
+  const tokenTemplate  = read(join(__dirname, '../templates/TokenTemplate.tmp'), 'utf8');
   const tokenSourceCode = ejs.compile(tokenTemplate)({
     SaleName: newSaleParameters.SaleName,
     TokenSymbol: newSaleParameters.TokenSymbol,
@@ -258,7 +258,7 @@ function createSaleFiles(){
   /*
   * Create Migrations File
   */
-  const migrationsTemplate  = read(join(__dirname, '/templates/2_deploy_contracts.tmp'), 'utf8');
+  const migrationsTemplate  = read(join(__dirname, '../templates/2_deploy_contracts.tmp'), 'utf8');
   const migrationsFile = ejs.compile(migrationsTemplate)({
     SaleName: newSaleParameters.SaleName
   });

@@ -2,6 +2,9 @@
   "name": "sale-box",
   "version": "0.0.1",
   "repository": "git@github.com:tokenfoundry/sale-box.git",
+  "scripts": {
+    "create-new-sale": "node ./scripts/create-new-sale.js"
+  },
   "license": "MIT",
   "dependencies": {
     "@tokenfoundry/sale-contracts": "0.2.2",
