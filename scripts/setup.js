@@ -229,7 +229,7 @@ function createSaleFiles(){
   const saleTemplate  = read(join(__dirname, '../templates/SaleTemplate.tmp'), 'utf8');
   const saleSourceCode = ejs.compile(saleTemplate)(newSaleParameters);
 
-  fs.writeFileSync(`./contracts/${newSaleParameters.SaleName}Sale.sol`, saleSourceCode);
+  fs.writeFileSync(`./contracts/${newSaleParameters.SALE_NAME}Sale.sol`, saleSourceCode);
 
   /*
   * Create Token File
@@ -237,7 +237,7 @@ function createSaleFiles(){
   const tokenTemplate  = read(join(__dirname, '../templates/TokenTemplate.tmp'), 'utf8');
   const tokenSourceCode = ejs.compile(tokenTemplate)(newSaleParameters);
 
-  fs.writeFileSync(`./contracts/${newSaleParameters.SaleName}Token.sol`, tokenSourceCode);
+  fs.writeFileSync(`./contracts/${newSaleParameters.SALE_NAME}Token.sol`, tokenSourceCode);
 
   /*
   * Create Migrations File
