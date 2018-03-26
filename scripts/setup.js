@@ -241,7 +241,7 @@ function createSaleFiles(){
     Disbursements: newSaleParameters.Disbursements
   });
 
-  fs.writeFileSync('./contracts/'+newSaleParameters.SaleName+'Sale.sol', saleSourceCode);
+  fs.writeFileSync(`./contracts/${newSaleParameters.SaleName}Sale.sol`, saleSourceCode);
 
   /*
   * Create Token File
@@ -253,7 +253,7 @@ function createSaleFiles(){
     TokenDecimals: newSaleParameters.TokenDecimals
   });
 
-  fs.writeFileSync('./contracts/'+newSaleParameters.SaleName+'Token.sol', tokenSourceCode);
+  fs.writeFileSync(`./contracts/${newSaleParameters.SaleName}Token.sol`, tokenSourceCode);
 
   /*
   * Create Migrations File
@@ -265,6 +265,6 @@ function createSaleFiles(){
 
   fs.writeFileSync('./migrations/2_deploy_contracts.js', migrationsFile);
 
-  console.log(newSaleParameters.SaleName + ' Sale files are created.');
+  console.log(`${newSaleParameters.SaleName} sale files were created.`);
 }
 
