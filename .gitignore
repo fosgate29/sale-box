@@ -3,6 +3,9 @@ build
 
 .keys
 
+# Templates
+templates
+
 # solidity-coverage
 coverage.json
 coverageEnv
