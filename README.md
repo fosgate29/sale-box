@@ -1,7 +1,7 @@
 
 ### Overview
 
-It is a Truffle Box and it comes with everything you need to create a new Token Sale. Here you can find more information about installing [Truffle](http://truffleframework.com/) if you don't have it installed.
+It is a Truffle Box and it comes with everything you need to create a new Token Sale. Here you can find more information about installing [Truffle](http://truffleframework.com/). You will also need `yarn`.
  
 ### Installing
 
@@ -12,7 +12,7 @@ truffle unbox tokenfoundry/sale-box
 
 After it is installed, run script to create Sale and Token smart contracts:
 ```
-yarn createNewSale.js
+yarn create-new-sale
 ```
 
 Script will prompt for data that is necessary for each Sale Token. Here they are:
@@ -31,8 +31,8 @@ Script will prompt for data that is necessary for each Sale Token. Here they are
  - `Disbursements`: It is possible to have 1 or more disbursements. Each disbursement should have beneficiary (address), percent (between 1 to 100) of it will receive and duration (Solidity Time Units). Duration should follow Solidity units. More information about time units in solidity here http://solidity.readthedocs.io/en/v0.4.21/units-and-global-variables.html?highlight=years#time-units .
  
 ### Attention: 
-	- For everytime you execute the script, it will overwrite the files it created before.
-	- script makes some checks to see values entered are valid, but it is responsability of who is creating the Sale to make sure values are correct.
+	- Everytime you execute the script it will overwrite the files it created before.
+	- The script makes some checks to see values entered are valid, but it is responsability of who is creating the Sale to make sure values are correct.
 
 After the script is executed, 4 new files are created:
  - xxxxSale.sol

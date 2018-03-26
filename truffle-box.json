@@ -1,14 +1,13 @@
 {
   "ignore": [
-    "README.md",
-    ".gitignore"
+    "README.md"
   ],
   "commands": {
-    "Compile contracts": "truffle compile",
-    "Migrate contracts": "truffle migrate",
-    "Test contracts": "truffle test"
+    "Compile contracts": "yarn compile",
+    "Migrate contracts": "yarn migrate",
+    "Test contracts": "yarn test"
   },
   "hooks": {
-    "post-unpack": ""
+    "post-unpack": "yarn install && yarn create-new-sale"
   }
 }
