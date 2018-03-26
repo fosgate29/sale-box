@@ -28,8 +28,8 @@ Script will prompt for data that is necessary for each Sale Token. Here they are
  - `VAULT_DISBURSEMENT_AMOUNT`: Vault disbursement amount (in ether): the amount of ether that can be withrawn from the vault by the project team each month following (if the sale is successful and the project team deploys the testnet contracts).
  - `START_TIME`: Start time (in timestamp). The sale starts at this timestamp. You can use this service to generate the timestamp [https://www.unixtimestamp.com/index.php].
  - `WALLET`: Wallet. The address of the project team\'s wallet.
- - `DisbursementsNumbers`: Number of disbursements instance Sale will have.
-
+ - `Disbursements`: It is possible to have 1 or more disbursements. Each disbursement should have beneficiary (address), percent (between 1 to 100) of it will receive and duration (Solidity Time Units). Duration should follow Solidity units. More information about time units in solidity here http://solidity.readthedocs.io/en/v0.4.21/units-and-global-variables.html?highlight=years#time-units .
+ 
 ### Attention: 
 	- For everytime you execute the script, it will overwrite the files it created before.
 	- script makes some checks to see values entered are valid, but it is responsability of who is creating the Sale to make sure values are correct.

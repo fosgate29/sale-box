@@ -11,5 +11,10 @@
   "VAULT_DISBURSEMENT_AMOUNT": "10",
   "START_TIME": "100000000",
   "WALLET": "0x10a6eeb986b9094f0a131a28b0c57d2e66eecc3a",
-  "DisbursementsNumbers": "3"
+  "Disbursements": 
+        [
+          { "beneficiaryAddress": "0x2", "percent": "20", "duration": "2 years"},
+          { "beneficiaryAddress": "0x23", "percent": "23", "duration": "150021222555"},
+          { "beneficiaryAddress": "0x24", "percent": "2", "duration": "1 weeks"}
+        ]        
 }
