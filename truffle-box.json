@@ -3,11 +3,12 @@
     "README.md"
   ],
   "commands": {
+    "Setup new sale": "yarn setup",
     "Compile contracts": "yarn compile",
     "Migrate contracts": "yarn migrate",
     "Test contracts": "yarn test"
   },
   "hooks": {
-    "post-unpack": "yarn install && yarn create-new-sale"
+    "post-unpack": "yarn install"
   }
 }

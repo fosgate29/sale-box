@@ -1,7 +1,7 @@
 
 ### Overview
 
-It is a Truffle Box and it comes with everything you need to create a new Token Sale. Here you can find more information about installing [Truffle](http://truffleframework.com/). You will also need `yarn`.
+Truffle Box that comes with everything you need to create a new Token Sale. Here you can find more information about installing [Truffle](http://truffleframework.com/). You will also need `yarn`.
  
 ### Installing
 
@@ -10,9 +10,9 @@ Run this command to create a new Truffle project with this box:
 truffle unbox tokenfoundry/sale-box
 ```
 
-After it is installed, run script to create Sale and Token smart contracts:
+After it is unboxed, run the setup script to create Sale and Token smart contracts:
 ```
-yarn create-new-sale
+yarn setup
 ```
 
 Script will prompt for data that is necessary for each Sale Token. Here they are:

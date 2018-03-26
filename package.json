@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "repository": "git@github.com:tokenfoundry/sale-box.git",
   "scripts": {
-    "check-sale-storage": "truffle exec scripts/checkSaleStorage.js",
+    "setup": "truffle exec scripts/setup.js",
     "compile": "truffle compile",
     "coverage": "solidity-coverage",
     "coverage-ci": "solidity-coverage && cat coverage/lcov.info | coveralls",
