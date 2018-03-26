@@ -3,11 +3,11 @@ pragma solidity 0.4.19;
 import "zeppelin-solidity/contracts/token/ERC20/DetailedERC20.sol";
 import "@tokenfoundry/token-contracts/contracts/Token.sol";
 
-contract <%= SaleName %>Token is Token, DetailedERC20 {
+contract <%= SALE_NAME %>Token is Token, DetailedERC20 {
 
-    function <%= SaleName %>Token(uint256 _maxTokens) 
+    function <%= SALE_NAME %>Token(uint256 _maxTokens) 
         Token(_maxTokens)
-        DetailedERC20("<%= SaleName %> Token", "<%= TokenSymbol %>", <%= TokenDecimals %>) 
+        DetailedERC20("<%= SALE_NAME %> Token", "<%= TOKEN_SYMBOL %>", <%= TOKEN_DECIMALS %>) 
         public 
     {
     }
