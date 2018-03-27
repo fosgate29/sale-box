@@ -111,7 +111,7 @@ const saleQuestions = [
     name: 'WALLET',
     message: 'Wallet:',
     validate: (value) => {
-      const valid = web3.utils.isAddress(value);
+      const valid = web3.isAddress(value);
       return valid || 'Please enter a valid Ethereum Wallet address';
     }
   }
@@ -137,7 +137,7 @@ const disbursementQuestion = {
 
     const { address, amount, duration } = answer;
 
-    if (!web3.utils.isAddress(address)) return 'Please enter a valid Ethereum Wallet address';
+    if (!web3.isAddress(address)) return 'Please enter a valid Ethereum Wallet address';
     if (isNaN(parseFloat(amount))) return 'Please enter a valid amount';
 
     return true;
