@@ -15,12 +15,12 @@ const saleQuestions = [
   {
     type: 'input',
     name: 'SALE_NAME',
-    message: 'Sale Name'
+    message: 'Sale Name:'
   },
   {
     type: 'input',
     name: 'TOKEN_SYMBOL',
-    message: 'Token Symbol',
+    message: 'Token Symbol:',
     filter: function(val) {
       return val.toUpperCase();
     }
@@ -28,7 +28,7 @@ const saleQuestions = [
   {
     type: 'input',
     name: 'TOKEN_DECIMALS',
-    message: 'Token Decimals. It can be from 0 to 18.',
+    message: 'Token Decimals (between 0 and 18):',
     default: 18,
     validate: function(value) {
       const valid = !isNaN(parseInt(value)) && parseInt(value,10)==value && value >= 0 && value <= 18;
@@ -39,27 +39,27 @@ const saleQuestions = [
   {
     type: 'input',
     name: 'TOTAL_SALE_CAP',
-    message: 'Total Sale Cap (in ether). The maximum amount of ether the sale can raise:',
+    message: 'Total Sale Cap (in ether):',
     validate: function(value) {
       const valid = !isNaN(parseInt(value)) && parseInt(value,10)==value && value >= 0
       return valid || 'Please enter a valid number';
     },
-    filter: Number
+    filter: (value) => return new web3.BigNumber(value);
   },
   {
     type: 'input',
     name: 'MIN_CONTRIBUTION',
-    message: 'Minimum Contribution (in ether). The minimum contribution that an address needs to make to be allowed to participate:',
+    message: 'Minimum Contribution (in ether):',
     validate: function(value) {
       const valid = !isNaN(parseFloat(value)) && value > 0;
       return valid || 'Please enter a number';
     },
-    filter: Number
+    filter: (value) => return new web3.BigNumber(value);
   },
   {
     type: 'input',
     name: 'MIN_THRESHOLD',
-    message: 'Minimum Threshold (in ether). The minimum amount of ether the sale must raise to be successful. If the threshold is not reached, all contributions may be withdrawn:',
+    message: 'Minimum Threshold (in ether):',
     validate: function(value) {
       const valid = !isNaN(parseFloat(value)) && value > 0;
       return valid || 'Please enter a number';
@@ -69,7 +69,7 @@ const saleQuestions = [
   {
     type: 'input',
     name: 'MAX_TOKENS',
-    message: 'Maximum Tokens. Total supply of tokens:',
+    message: 'Total supply of tokens:',
     validate: function(value) {
       const valid = !isNaN(parseFloat(value)) && parseInt(value,10)==value && value >= 0 ;
       return valid || 'Please enter a number';
@@ -79,7 +79,7 @@ const saleQuestions = [
   {
     type: 'input',
     name: 'CLOSING_DURATION',
-    message: 'Closing duration (in days). How much time, from the end of the sale, the project team has to deploy their testnet contracts:',
+    message: 'Vault closing duration (in days):',
     default: 28,
     validate: function(value) {
       const valid = !isNaN(parseFloat(value)) && value > 0;
@@ -90,7 +90,7 @@ const saleQuestions = [
   {
     type: 'input',
     name: 'VAULT_INITIAL_AMOUNT',
-    message: 'Vault initial amount (in ether). The amount of ether that will be sent to the project\'s wallet once the sale is successful:',
+    message: 'Vault initial amount (in ether):',
     validate: function(value) {
       const valid = !isNaN(parseFloat(value));
       return valid || 'Please enter a number';
@@ -100,7 +100,7 @@ const saleQuestions = [
   {
     type: 'input',
     name: 'VAULT_DISBURSEMENT_AMOUNT',
-    message: 'Vault disbursement amount (in ether): the amount of ether that can be withrawn from the vault by the project team each month following (if the sale is successful and the project team deploys the testnet contracts):',
+    message: 'Vault disbursement amount (in ether):',
     validate: function(value) {
       const valid = !isNaN(parseFloat(value)) && value > 0;
       return valid || 'Please enter a valid number greater than 0';
@@ -110,7 +110,7 @@ const saleQuestions = [
   {
     type: 'input',
     name: 'START_TIME',
-    message: 'Start time (in timestamp). The sale starts at this timestamp.',
+    message: 'Start time (in timestamp):',
     validate: function(value) {
       const valid = !isNaN(parseFloat(value)) && value > 0;
       return valid || 'Please enter a valid number greater than 0';
@@ -120,7 +120,7 @@ const saleQuestions = [
   {
     type: 'input',
     name: 'WALLET',
-    message: 'Wallet. The address of the project team\'s wallet.',
+    message: 'Wallet:',
     validate: function(value) {
       const valid = web3.utils.isAddress(value);
       return valid || 'Please enter a valid Ethereum Wallet address';
