@@ -164,6 +164,7 @@ askForDisbursements = () => {
       disbursements.push(disbursement);
       return askForDisbursements()
     }
+    return disbursements;
   });
 }
 
