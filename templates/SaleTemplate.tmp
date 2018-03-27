@@ -44,7 +44,7 @@ contract <%= SALE_NAME %>Sale is Sale {
     function getDisbursements() internal pure returns(Disbursement[] disbursements) {
         disbursements = new Disbursement[](<%= DISBURSEMENTS.length %>);
         <% DISBURSEMENTS.forEach((disbursement, i) => { %>
-        disbursements[<%= i %>] = Disbursement(<%= disbursement.beneficiaryAddress %>, <%= disbursement.amount %> * (10 ** <%= TOKEN_DECIMALS %>), <%= disbursement.duration %>);
+        disbursements[<%= i %>] = Disbursement(<%= disbursement.address %>, <%= disbursement.amount %> * (10 ** <%= TOKEN_DECIMALS %>), <%= disbursement.duration %>);
         <% }) %>
     }
     <% } %>
