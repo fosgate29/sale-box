@@ -2,13 +2,13 @@ pragma solidity 0.4.19;
 
 import "@tokenfoundry/sale-contracts/contracts/Sale.sol";
 
-import "./<%= SaleName %>Token.sol";
+import "./<%= SALE_NAME %>Token.sol";
 
-contract <%= SaleName %>Sale is Sale {
+contract <%= SALE_NAME %>Sale is Sale {
     uint256 public constant TOTAL_SALE_CAP = <%= TOTAL_SALE_CAP %> ether;
     uint256 public constant MIN_CONTRIBUTION = <%= MIN_CONTRIBUTION %> ether;
     uint256 public constant MIN_THRESHOLD = <%= MIN_THRESHOLD %> ether;
-    uint256 public constant MAX_TOKENS = <%= MAX_TOKENS %>;
+    uint256 public constant MAX_TOKENS = <%= MAX_TOKENS %> * (10 ** <%= TOKEN_DECIMALS %>);
 
     uint256 public constant CLOSING_DURATION = <%= CLOSING_DURATION %> days;
     uint256 public constant VAULT_INITIAL_AMOUNT = <%= VAULT_INITIAL_AMOUNT %> ether;
@@ -18,7 +18,7 @@ contract <%= SaleName %>Sale is Sale {
 
     address public constant WALLET = <%= WALLET %>;
 
-    function <%= SaleName %>Sale(address whitelistAdmin) 
+    function <%= SALE_NAME %>Sale(address whitelistAdmin) 
         Sale(
             TOTAL_SALE_CAP,
             MIN_CONTRIBUTION,
@@ -37,18 +37,16 @@ contract <%= SaleName %>Sale is Sale {
     }
 
     function createToken(uint256 _maxTokens) internal returns (Token) {
-        return new <%= SaleName %>Token(_maxTokens);
+        return new <%= SALE_NAME %>Token(_maxTokens);
     }
  
+    <% if (DISBURSEMENTS.length) { %>
     function getDisbursements() internal pure returns(Disbursement[] disbursements) {
-        <% if (Disbursements.length) { %>
-            <% let i = 0 %>
-            disbursements = new Disbursement[](<%= Disbursements.length %>);
-        <% Disbursements.forEach(function (disbursement) { %>
-            disbursements[<%= i %>] = Disbursement(<%= disbursement.beneficiaryAddress %>, MAX_TOKENS.mul(<%= disbursement.percent %>).div(100), <%= disbursement.duration %>);
-            <% i++ %>
+        disbursements = new Disbursement[](<%= DISBURSEMENTS.length %>);
+        <% DISBURSEMENTS.forEach((disbursement, i) => { %>
+        disbursements[<%= i %>] = Disbursement(<%= disbursement.beneficiaryAddress %>, <%= disbursement.amount %> * (10 ** <%= TOKEN_DECIMALS %>), <%= disbursement.duration %>);
         <% }) %>
-        <% } %>
     }
+    <% } %>
 
 }

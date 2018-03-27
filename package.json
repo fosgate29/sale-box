@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "repository": "git@github.com:tokenfoundry/sale-box.git",
   "scripts": {
-    "setup": "truffle exec scripts/setup.js",
     "compile": "truffle compile",
     "coverage": "solidity-coverage",
     "coverage-ci": "solidity-coverage && cat coverage/lcov.info | coveralls",
@@ -11,6 +10,7 @@
     "generate-wallet": "node ./scripts/generateWallet.js",
     "lint": "eslint .",
     "migrate": "truffle migrate",
+    "setup": "node ./scripts/setup.js && rm -rf ./templates",
     "test": "truffle test"
   },
   "license": "MIT",
