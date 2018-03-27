@@ -11,16 +11,16 @@ console.log('Create new Sale files:');
 /*
  * Questions about Sale and Token parameters
  */
-const saleParameters = [
+const saleQuestions = [
   {
     type: 'input',
     name: 'SALE_NAME',
-    message: 'Sale Name'
+    message: 'Sale Name:'
   },
   {
     type: 'input',
     name: 'TOKEN_SYMBOL',
-    message: 'Token Symbol',
+    message: 'Token Symbol:',
     filter: function(val) {
       return val.toUpperCase();
     }
@@ -28,7 +28,7 @@ const saleParameters = [
   {
     type: 'input',
     name: 'TOKEN_DECIMALS',
-    message: 'Token Decimals. It can be from 0 to 18.',
+    message: 'Token Decimals (between 0 and 18):',
     default: 18,
     validate: function(value) {
       const valid = !isNaN(parseInt(value)) && parseInt(value,10)==value && value >= 0 && value <= 18;
@@ -39,27 +39,27 @@ const saleParameters = [
   {
     type: 'input',
     name: 'TOTAL_SALE_CAP',
-    message: 'Total Sale Cap (in ether). The maximum amount of ether the sale can raise:',
+    message: 'Total Sale Cap (in ether):',
     validate: function(value) {
       const valid = !isNaN(parseInt(value)) && parseInt(value,10)==value && value >= 0
       return valid || 'Please enter a valid number';
     },
-    filter: Number
+    filter: (value) => return new web3.BigNumber(value);
   },
   {
     type: 'input',
     name: 'MIN_CONTRIBUTION',
-    message: 'Minimum Contribution (in ether). The minimum contribution that an address needs to make to be allowed to participate:',
+    message: 'Minimum Contribution (in ether):',
     validate: function(value) {
       const valid = !isNaN(parseFloat(value)) && value > 0;
       return valid || 'Please enter a number';
     },
-    filter: Number
+    filter: (value) => return new web3.BigNumber(value);
   },
   {
     type: 'input',
     name: 'MIN_THRESHOLD',
-    message: 'Minimum Threshold (in ether). The minimum amount of ether the sale must raise to be successful. If the threshold is not reached, all contributions may be withdrawn:',
+    message: 'Minimum Threshold (in ether):',
     validate: function(value) {
       const valid = !isNaN(parseFloat(value)) && value > 0;
       return valid || 'Please enter a number';
@@ -69,7 +69,7 @@ const saleParameters = [
   {
     type: 'input',
     name: 'MAX_TOKENS',
-    message: 'Maximum Tokens. Total supply of tokens:',
+    message: 'Total supply of tokens:',
     validate: function(value) {
       const valid = !isNaN(parseFloat(value)) && parseInt(value,10)==value && value >= 0 ;
       return valid || 'Please enter a number';
@@ -79,7 +79,7 @@ const saleParameters = [
   {
     type: 'input',
     name: 'CLOSING_DURATION',
-    message: 'Closing duration (in days). How much time, from the end of the sale, the project team has to deploy their testnet contracts:',
+    message: 'Vault closing duration (in days):',
     default: 28,
     validate: function(value) {
       const valid = !isNaN(parseFloat(value)) && value > 0;
@@ -90,7 +90,7 @@ const saleParameters = [
   {
     type: 'input',
     name: 'VAULT_INITIAL_AMOUNT',
-    message: 'Vault initial amount (in ether). The amount of ether that will be sent to the project\'s wallet once the sale is successful:',
+    message: 'Vault initial amount (in ether):',
     validate: function(value) {
       const valid = !isNaN(parseFloat(value));
       return valid || 'Please enter a number';
@@ -100,7 +100,7 @@ const saleParameters = [
   {
     type: 'input',
     name: 'VAULT_DISBURSEMENT_AMOUNT',
-    message: 'Vault disbursement amount (in ether): the amount of ether that can be withrawn from the vault by the project team each month following (if the sale is successful and the project team deploys the testnet contracts):',
+    message: 'Vault disbursement amount (in ether):',
     validate: function(value) {
       const valid = !isNaN(parseFloat(value)) && value > 0;
       return valid || 'Please enter a valid number greater than 0';
@@ -110,7 +110,7 @@ const saleParameters = [
   {
     type: 'input',
     name: 'START_TIME',
-    message: 'Start time (in timestamp). The sale starts at this timestamp.',
+    message: 'Start time (in timestamp):',
     validate: function(value) {
       const valid = !isNaN(parseFloat(value)) && value > 0;
       return valid || 'Please enter a valid number greater than 0';
@@ -120,7 +120,7 @@ const saleParameters = [
   {
     type: 'input',
     name: 'WALLET',
-    message: 'Wallet. The address of the project team\'s wallet.',
+    message: 'Wallet:',
     validate: function(value) {
       const valid = web3.utils.isAddress(value);
       return valid || 'Please enter a valid Ethereum Wallet address';
@@ -128,59 +128,78 @@ const saleParameters = [
   }
 ];
 
-/*
- * Questions to create Disbursement
- */
-const disbursementQuestions = [
-  {
-    type: 'input',
-    name: 'beneficiaryAddress',
-    message: 'Beneficiary address:',
-    validate: function(value) {
-      const valid = web3.utils.isAddress(value);
-      return valid || 'Please enter a valid Ethereum Wallet address';
+const parseDisbursement = (disbursement) => {
+  const values = disbursement.split(',');
+  return { 
+    address: values[0],
+    amount: values[1],
+    duration: values[2]
+  }
+}
+
+const disbursementQuestion = {
+  type: 'input',
+  name: 'disbursement',
+  message: 'Disbursement: type the address, amount and duration separated by commas, or type \'done\' if no more disbursements need to be added:',
+  filter: answer => answer === 'done' ? answer : parseDisbursement(answer),
+  validate: answer => {
+
+    if (answer === 'done') return true;
+
+    const { address, amount, duration } = answer;
+
+    if (!web3.utils.isAddress(address)) return 'Please enter a valid Ethereum Wallet address';
+    if (isNaN(parseFloat(amount))) return 'Please enter a valid amount';
+
+    return true;
+  },
+};
+
+let saleParameters;
+const disbursements = [];
+
+askForDisbursements = () => {
+  return inquirer.prompt(disbursementQuestion).then(({ disbursement }) => {
+    if (disbursement !== 'done') {
+      disbursements.push(disbursement);
+      return askForDisbursements()
     }
-  },
-  {
-    type: 'input',
-    name: 'amount',
-    message: 'Amount:',
-    validate: function(value) {
-      const valid = !isNaN(parseFloat(value));
-      return valid || 'Please enter a number';
-    },
-    filter: Number
-  },
-  {
-    type: 'input',
-    name: 'duration',
-    message: 'Duration (in seconds or use Time Unit Solidity accepts like \'1 years\', \'2 weeks\':',
-  },
-  {
-    type: 'confirm',
-    name: 'askAgain',
-    message: 'Want to enter more disbursement?',
-    default: true
-  }
-]
-
-let disbursementAnswers = [];
-let sale;
-
-function askOrPerformFinalAction(answer) {
-
-  disbursementAnswers.push(answer);
-
-  if (!answer.askAgain) {
-     sale["DISBURSEMENTS"] = disbursementAnswers; 
-     checkParameters(JSON.stringify(sale, null, '  '));
-     return;
-  }
-
-  return inquirer.prompt(disbursementQuestions).then(ans => {
-     askOrPerformFinalAction(ans);
+    return disbursements;
   });
+}
 
+/*
+* Before creating files, user can see on the screen the JSON file to make one last check before creating contracts
+*/
+checkParameters = () => {
+  console.log('\n\n *** Please verifiy the JSON file that will be used to create Sale smart contracts:\n\n');
+  console.log(JSON.stringify(saleParameters, null, '  '));
+
+  return inquirer.prompt({ type: 'confirm', name: 'dataIsCorrect', message: 'Is data correct?' , default: false });
+}
+
+/*
+* Read JSON file with parameters and create files based on templates
+*/
+createSaleFiles = () => {
+  // Create Sale File
+  const saleTemplate  = read(join(__dirname, '../templates/SaleTemplate.tmp'), 'utf8');
+  const saleSourceCode = ejs.compile(saleTemplate)(saleParameters);
+
+  // Create Token File
+  const tokenTemplate  = read(join(__dirname, '../templates/TokenTemplate.tmp'), 'utf8');
+  const tokenSourceCode = ejs.compile(tokenTemplate)(saleParameters);
+
+  // Create Migrations File
+  const migrationsTemplate  = read(join(__dirname, '../templates/2_deploy_contracts.tmp'), 'utf8');
+  const migrationsFile = ejs.compile(migrationsTemplate)(saleParameters);
+
+  fs.writeFileSync(`./contracts/${saleParameters.SALE_NAME}Sale.sol`, saleSourceCode);
+  fs.writeFileSync(`./contracts/${saleParameters.SALE_NAME}Token.sol`, tokenSourceCode);
+  fs.writeFileSync('./migrations/2_deploy_contracts.js', migrationsFile);
+  fs.writeFileSync('./saleParameters.json', JSON.stringify(saleParameters, null, '  '));
+
+  console.log(`${saleParameters.SALE_NAME} sale files were created.`);
 }
 
 /*
@@ -188,65 +207,17 @@ function askOrPerformFinalAction(answer) {
 * When it has all data necessary, create a JSON file with the parameters user entered
 * and then create contracts based on a JSON file.
 */
-inquirer.prompt(saleParameters)
-    .then(saleParameters => {
-      sale = saleParameters;
-      console.log('Now add value for the Disbursement.')
-      inquirer.prompt(disbursementQuestions).then(disbursementAnswers => {
-          askOrPerformFinalAction(disbursementAnswers);  
-      })
+inquirer.prompt(saleQuestions).then(ans => {
+  saleParameters = ans;
+  return askForDisbursements();
+}).then(disbursements => {
+  saleParameters['disbursements'] = disbursements;
+  return checkParameters();
+  // return checkParameters(JSON.stringify(saleParameters, null, '  '));
+}).then(({ dataIsCorrect }) => {
+  if (dataIsCorrect) {
+    createSaleFiles();
+  } else {
+    console.log('You should restart the script.');
+  }
 });
-
-/*
-* Before creating files, user can see on the screen the JSON file to make one last check before creating contracts
-*/
-function checkParameters(_jsonFormat) {
-  const jsonFormat = _jsonFormat
-  console.log('\n\n *** Please verifiy the JSON file that will be used to create Sale smart contracts:\n\n');
-  console.log(jsonFormat);
-
-  inquirer.prompt({ type: 'confirm', name: 'dataIsCorrect', message: 'Is data correct?' , default: false }).then(answer => {
-    if (answer.dataIsCorrect) {
-      fs.writeFileSync('./scripts/newSaleParameters.json', jsonFormat);
-      createSaleFiles();
-    } else {
-      console.log('You should restart script.');
-    }
-  });
-}
-
-/*
-* Read JSON file with parameters and create files based on templates
-*/
-function createSaleFiles(){
-
-  const jsonData = read(join(__dirname, 'newSaleParameters.json'), 'utf8');
-  const newSaleParameters = JSON.parse(jsonData);
-
-  /*
-  * Create Sale File
-  */
-  const saleTemplate  = read(join(__dirname, '../templates/SaleTemplate.tmp'), 'utf8');
-  const saleSourceCode = ejs.compile(saleTemplate)(newSaleParameters);
-
-  fs.writeFileSync(`./contracts/${newSaleParameters.SALE_NAME}Sale.sol`, saleSourceCode);
-
-  /*
-  * Create Token File
-  */
-  const tokenTemplate  = read(join(__dirname, '../templates/TokenTemplate.tmp'), 'utf8');
-  const tokenSourceCode = ejs.compile(tokenTemplate)(newSaleParameters);
-
-  fs.writeFileSync(`./contracts/${newSaleParameters.SALE_NAME}Token.sol`, tokenSourceCode);
-
-  /*
-  * Create Migrations File
-  */
-  const migrationsTemplate  = read(join(__dirname, '../templates/2_deploy_contracts.tmp'), 'utf8');
-  const migrationsFile = ejs.compile(migrationsTemplate)(newSaleParameters);
-
-  fs.writeFileSync('./migrations/2_deploy_contracts.js', migrationsFile);
-
-  console.log(`${newSaleParameters.SaleName} sale files were created.`);
-}
-
