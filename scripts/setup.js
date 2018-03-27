@@ -200,7 +200,7 @@ inquirer.prompt(saleQuestions).then(ans => {
   saleParameters = ans;
   return askForDisbursements();
 }).then(disbursements => {
-  saleParameters['disbursements'] = disbursements;
+  saleParameters['DISBURSEMENTS'] = disbursements;
   return checkParameters();
   // return checkParameters(JSON.stringify(saleParameters, null, '  '));
 }).then(({ dataIsCorrect }) => {
