@@ -14,12 +14,12 @@ console.log('Create new Sale files:');
 const saleQuestions = [
   {
     type: 'input',
-    name: 'saleName',
+    name: 'SALE_NAME',
     message: 'Sale Name'
   },
   {
     type: 'input',
-    name: 'tokenSymbol',
+    name: 'TOKEN_SYMBOL',
     message: 'Token Symbol',
     filter: function(val) {
       return val.toUpperCase();
@@ -27,7 +27,7 @@ const saleQuestions = [
   },
   {
     type: 'input',
-    name: 'tokenDecimals',
+    name: 'TOKEN_DECIMALS',
     message: 'Token Decimals. It can be from 0 to 18.',
     default: 18,
     validate: function(value) {
@@ -38,7 +38,7 @@ const saleQuestions = [
   },
   {
     type: 'input',
-    name: 'totalSaleCap',
+    name: 'TOTAL_SALE_CAP',
     message: 'Total Sale Cap (in ether). The maximum amount of ether the sale can raise:',
     validate: function(value) {
       const valid = !isNaN(parseInt(value)) && parseInt(value,10)==value && value >= 0
@@ -48,7 +48,7 @@ const saleQuestions = [
   },
   {
     type: 'input',
-    name: 'minContribution',
+    name: 'MIN_CONTRIBUTION',
     message: 'Minimum Contribution (in ether). The minimum contribution that an address needs to make to be allowed to participate:',
     validate: function(value) {
       const valid = !isNaN(parseFloat(value)) && value > 0;
@@ -58,7 +58,7 @@ const saleQuestions = [
   },
   {
     type: 'input',
-    name: 'minThreshold',
+    name: 'MIN_THRESHOLD',
     message: 'Minimum Threshold (in ether). The minimum amount of ether the sale must raise to be successful. If the threshold is not reached, all contributions may be withdrawn:',
     validate: function(value) {
       const valid = !isNaN(parseFloat(value)) && value > 0;
@@ -68,7 +68,7 @@ const saleQuestions = [
   },
   {
     type: 'input',
-    name: 'maxTokens',
+    name: 'MAX_TOKENS',
     message: 'Maximum Tokens. Total supply of tokens:',
     validate: function(value) {
       const valid = !isNaN(parseFloat(value)) && parseInt(value,10)==value && value >= 0 ;
@@ -78,7 +78,7 @@ const saleQuestions = [
   },
   {
     type: 'input',
-    name: 'closingDuration',
+    name: 'CLOSING_DURATION',
     message: 'Closing duration (in days). How much time, from the end of the sale, the project team has to deploy their testnet contracts:',
     default: 28,
     validate: function(value) {
@@ -89,7 +89,7 @@ const saleQuestions = [
   },
   {
     type: 'input',
-    name: 'vaultInitialAmount',
+    name: 'VAULT_INITIAL_AMOUNT',
     message: 'Vault initial amount (in ether). The amount of ether that will be sent to the project\'s wallet once the sale is successful:',
     validate: function(value) {
       const valid = !isNaN(parseFloat(value));
@@ -99,7 +99,7 @@ const saleQuestions = [
   },
   {
     type: 'input',
-    name: 'vaultDisbursementDuration',
+    name: 'VAULT_DISBURSEMENT_AMOUNT',
     message: 'Vault disbursement amount (in ether): the amount of ether that can be withrawn from the vault by the project team each month following (if the sale is successful and the project team deploys the testnet contracts):',
     validate: function(value) {
       const valid = !isNaN(parseFloat(value)) && value > 0;
@@ -109,7 +109,7 @@ const saleQuestions = [
   },
   {
     type: 'input',
-    name: 'startTime',
+    name: 'START_TIME',
     message: 'Start time (in timestamp). The sale starts at this timestamp.',
     validate: function(value) {
       const valid = !isNaN(parseFloat(value)) && value > 0;
@@ -119,7 +119,7 @@ const saleQuestions = [
   },
   {
     type: 'input',
-    name: 'wallet',
+    name: 'WALLET',
     message: 'Wallet. The address of the project team\'s wallet.',
     validate: function(value) {
       const valid = web3.utils.isAddress(value);
@@ -164,7 +164,6 @@ askForDisbursements = () => {
       disbursements.push(disbursement);
       return askForDisbursements()
     }
-    return disbursements;
   });
 }
 
