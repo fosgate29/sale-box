@@ -21,107 +21,96 @@ const saleQuestions = [
     type: 'input',
     name: 'TOKEN_SYMBOL',
     message: 'Token Symbol:',
-    filter: function(val) {
-      return val.toUpperCase();
-    }
+    filter: (value) => value.toUpperCase()
   },
   {
     type: 'input',
     name: 'TOKEN_DECIMALS',
-    message: 'Token Decimals (between 0 and 18):',
-    default: 18,
-    validate: function(value) {
-      const valid = !isNaN(parseInt(value)) && parseInt(value,10)==value && value >= 0 && value <= 18;
-      return valid || 'Please enter a valid number between 0 and 18';
+    message: 'Token Decimals:',
+    default: '18',
+    validate: (value) => {
+      const valid = !isNaN(parseInt(value));
+      return valid || 'Please enter a valid number';
     },
-    filter: Number
   },
   {
     type: 'input',
     name: 'TOTAL_SALE_CAP',
     message: 'Total Sale Cap (in ether):',
-    validate: function(value) {
-      const valid = !isNaN(parseInt(value)) && parseInt(value,10)==value && value >= 0
+    validate: (value) => {
+      const valid = !isNaN(parseInt(value));
       return valid || 'Please enter a valid number';
-    },
-    filter: (value) => return new web3.BigNumber(value);
+    }
   },
   {
     type: 'input',
     name: 'MIN_CONTRIBUTION',
     message: 'Minimum Contribution (in ether):',
-    validate: function(value) {
-      const valid = !isNaN(parseFloat(value)) && value > 0;
+    validate: (value) => {
+      const valid = !isNaN(parseFloat(value));
       return valid || 'Please enter a number';
-    },
-    filter: (value) => return new web3.BigNumber(value);
+    }
   },
   {
     type: 'input',
     name: 'MIN_THRESHOLD',
     message: 'Minimum Threshold (in ether):',
-    validate: function(value) {
-      const valid = !isNaN(parseFloat(value)) && value > 0;
+    validate: (value) => {
+      const valid = !isNaN(parseFloat(value));
       return valid || 'Please enter a number';
-    },
-    filter: Number
+    }
   },
   {
     type: 'input',
     name: 'MAX_TOKENS',
     message: 'Total supply of tokens:',
-    validate: function(value) {
-      const valid = !isNaN(parseFloat(value)) && parseInt(value,10)==value && value >= 0 ;
+    validate: (value) => {
+      const valid = !isNaN(parseFloat(value)) && parseInt(value, 10) == value;
       return valid || 'Please enter a number';
-    },
-    filter: Number
+    }
   },
   {
     type: 'input',
     name: 'CLOSING_DURATION',
     message: 'Vault closing duration (in days):',
-    default: 28,
-    validate: function(value) {
-      const valid = !isNaN(parseFloat(value)) && value > 0;
+    default: '28',
+    validate: (value) => {
+      const valid = !isNaN(parseFloat(value));
       return valid || 'Please enter a number greater than 0';
-    },
-    filter: Number
+    }
   },
   {
     type: 'input',
     name: 'VAULT_INITIAL_AMOUNT',
     message: 'Vault initial amount (in ether):',
-    validate: function(value) {
+    validate: (value) => {
       const valid = !isNaN(parseFloat(value));
       return valid || 'Please enter a number';
-    },
-    filter: Number
+    }
   },
   {
     type: 'input',
     name: 'VAULT_DISBURSEMENT_AMOUNT',
     message: 'Vault disbursement amount (in ether):',
-    validate: function(value) {
-      const valid = !isNaN(parseFloat(value)) && value > 0;
+    validate: (value) => {
+      const valid = !isNaN(parseFloat(value));
       return valid || 'Please enter a valid number greater than 0';
-    },
-    filter: Number
+    }
   },
   {
     type: 'input',
     name: 'START_TIME',
     message: 'Start time (in timestamp):',
-    validate: function(value) {
-      const valid = !isNaN(parseFloat(value)) && value > 0;
+    validate: (value) => {
+      const valid = !isNaN(parseFloat(value));
       return valid || 'Please enter a valid number greater than 0';
-    },
-    filter: Number
+    }
   },
   {
     type: 'input',
     name: 'WALLET',
     message: 'Wallet:',
-    validate: function(value) {
+    validate: (value) => {
       const valid = web3.utils.isAddress(value);
       return valid || 'Please enter a valid Ethereum Wallet address';
     }
@@ -175,7 +164,7 @@ checkParameters = () => {
   console.log('\n\n *** Please verifiy the JSON file that will be used to create Sale smart contracts:\n\n');
   console.log(JSON.stringify(saleParameters, null, '  '));
 
-  return inquirer.prompt({ type: 'confirm', name: 'dataIsCorrect', message: 'Is data correct?' , default: false });
+  return inquirer.prompt({ type: 'confirm', name: 'dataIsCorrect', message: 'Is data correct?', default: false });
 }
 
 /*
@@ -211,7 +200,7 @@ inquirer.prompt(saleQuestions).then(ans => {
   saleParameters = ans;
   return askForDisbursements();
 }).then(disbursements => {
-  saleParameters['disbursements'] = disbursements;
+  saleParameters['DISBURSEMENTS'] = disbursements;
   return checkParameters();
   // return checkParameters(JSON.stringify(saleParameters, null, '  '));
 }).then(({ dataIsCorrect }) => {
