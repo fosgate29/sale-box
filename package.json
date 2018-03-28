@@ -15,8 +15,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@tokenfoundry/sale-contracts": "1.0.7",
-    "@tokenfoundry/token-contracts": "0.2.5",
+    "@tokenfoundry/sale-contracts": "1.0.10",
+    "@tokenfoundry/token-contracts": "0.2.11",
     "zeppelin-solidity": "1.7.0"
   },
   "devDependencies": {
