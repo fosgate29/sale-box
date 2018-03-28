@@ -1,5 +1,6 @@
 const <%= SALE_NAME %>Sale = artifacts.require('./<%= SALE_NAME %>Sale.sol');
 
 module.exports = function(deployer, network, accounts) {
-  deployer.deploy(<%= SALE_NAME %>Sale, accounts[0]);
+  deployer.then(() => <%= SALE_NAME %>Sale.new())
+    .then(instance => instance.setup());
 };

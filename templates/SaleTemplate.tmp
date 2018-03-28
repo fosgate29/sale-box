@@ -10,6 +10,8 @@ contract <%= SALE_NAME %>Sale is Sale {
     uint256 public constant MIN_THRESHOLD = <%= MIN_THRESHOLD %> ether;
     uint256 public constant MAX_TOKENS = <%= MAX_TOKENS %> * (10 ** <%= TOKEN_DECIMALS %>);
 
+    address public constant WHITELIST_ADMIN = <%= WHITELIST_ADMIN %>;
+
     uint256 public constant CLOSING_DURATION = <%= CLOSING_DURATION %> days;
     uint256 public constant VAULT_INITIAL_AMOUNT = <%= VAULT_INITIAL_AMOUNT %> ether;
     uint256 public constant VAULT_DISBURSEMENT_AMOUNT = <%= VAULT_DISBURSEMENT_AMOUNT %> ether;
@@ -18,13 +20,13 @@ contract <%= SALE_NAME %>Sale is Sale {
 
     address public constant WALLET = <%= WALLET %>;
 
-    function <%= SALE_NAME %>Sale(address whitelistAdmin) 
+    function <%= SALE_NAME %>Sale() 
         Sale(
             TOTAL_SALE_CAP,
             MIN_CONTRIBUTION,
             MIN_THRESHOLD,
             MAX_TOKENS,
-            whitelistAdmin,
+            WHITELIST_ADMIN,
             WALLET,
             CLOSING_DURATION,
             VAULT_INITIAL_AMOUNT,
