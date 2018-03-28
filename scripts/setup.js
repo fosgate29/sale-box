@@ -1,10 +1,11 @@
 const inquirer = require('inquirer');
-const web3 = require('web3');
 
 const ejs  = require('ejs');
 const fs   = require('fs');
 const read = fs.readFileSync;
 const join = require('path').join;
+
+const isAddress = (address) => /^0x[0-9a-fA-F]{40}$/.test(address)
 
 console.log('Create new Sale files:');
 
@@ -111,7 +112,7 @@ const saleQuestions = [
     name: 'WALLET',
     message: 'Wallet:',
     validate: (value) => {
-      const valid = web3.isAddress(value);
+      const valid = isAddress(value);
       return valid || 'Please enter a valid Ethereum Wallet address';
     }
   }
@@ -137,7 +138,7 @@ const disbursementQuestion = {
 
     const { address, amount, duration } = answer;
 
-    if (!web3.isAddress(address)) return 'Please enter a valid Ethereum Wallet address';
+    if (!isAddress(address)) return 'Please enter a valid Ethereum Wallet address';
     if (isNaN(parseFloat(amount))) return 'Please enter a valid amount';
 
     return true;
