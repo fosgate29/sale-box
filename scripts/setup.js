@@ -36,6 +36,15 @@ const saleQuestions = [
   },
   {
     type: 'input',
+    name: 'MAX_TOKENS',
+    message: 'Total supply of tokens:',
+    validate: (value) => {
+      const valid = !isNaN(parseFloat(value)) && parseInt(value, 10) == value;
+      return valid || 'Please enter a number';
+    }
+  },
+  {
+    type: 'input',
     name: 'TOTAL_SALE_CAP',
     message: 'Total Sale Cap (in ether):',
     validate: (value) => {
@@ -58,15 +67,6 @@ const saleQuestions = [
     message: 'Minimum Threshold (in ether):',
     validate: (value) => {
       const valid = !isNaN(parseFloat(value));
-      return valid || 'Please enter a number';
-    }
-  },
-  {
-    type: 'input',
-    name: 'MAX_TOKENS',
-    message: 'Total supply of tokens:',
-    validate: (value) => {
-      const valid = !isNaN(parseFloat(value)) && parseInt(value, 10) == value;
       return valid || 'Please enter a number';
     }
   },
@@ -100,6 +100,15 @@ const saleQuestions = [
   },
   {
     type: 'input',
+    name: 'WALLET',
+    message: 'Wallet:',
+    validate: (value) => {
+      const valid = isAddress(value);
+      return valid || 'Please enter a valid Ethereum Wallet address';
+    }
+  },
+  {
+    type: 'input',
     name: 'START_TIME',
     message: 'Start time (in timestamp):',
     validate: (value) => {
@@ -109,8 +118,8 @@ const saleQuestions = [
   },
   {
     type: 'input',
-    name: 'WALLET',
-    message: 'Wallet:',
+    name: 'WHITELIST_ADMIN',
+    message: 'Whitelist Admin:',
     validate: (value) => {
       const valid = isAddress(value);
       return valid || 'Please enter a valid Ethereum Wallet address';
