@@ -1,4 +1,4 @@
-const { bufferToHex, fromRpcSig } = require('ethereumjs-util');
+const { fromRpcSig, sha3 } = require('ethereumjs-util');
 const abi = require('ethereumjs-abi');
 const inquirer = require('inquirer');
 
@@ -9,11 +9,13 @@ const padInt = (value) => {
 };
 
 const contributionHash = (address, limit, cap) => {
-  return web3.sha3(address + padInt(limit) + padInt(cap), { encoding: 'hex' });
+  return `0x${sha3(address + padInt(limit) + padInt(cap)).toString('hex')}`;
 };
 
 const contributionPayload = (admin, address, contributionLimit, currentSaleCap) => {
   const hash = contributionHash(address, contributionLimit, currentSaleCap);
+
+  // TODO: just use ethereumjs-util to sign
   const sig = fromRpcSig(web3.eth.sign(admin, hash));
 
   return abi.simpleEncode('contribute(uint256,uint256,uint8,bytes32,bytes32)', contributionLimit, currentSaleCap, sig.v, sig.r, sig.s);
@@ -59,8 +61,6 @@ const params = [
   }
 ];
 
-
-
 module.exports = (callback) => {
   inquirer.prompt(params).then(ans => {
     const { admin, contributor, contributionLimit, currentSaleCap } = ans;
@@ -71,5 +71,4 @@ module.exports = (callback) => {
   }).catch(error => {
     callback(error);
   });
- 
 }
