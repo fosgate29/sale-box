@@ -1,0 +1,22 @@
+{
+  "SALE_NAME": "",
+  "TOKEN_SYMBOL": "",
+  "TOKEN_DECIMALS": ,
+  "MAX_TOKENS": ,
+  "TOTAL_SALE_CAP": ,
+  "MIN_CONTRIBUTION": ,
+  "MIN_THRESHOLD": ,
+  "CLOSING_DURATION": ,
+  "VAULT_INITIAL_AMOUNT": ,
+  "VAULT_DISBURSEMENT_AMOUNT": ,
+  "START_TIME": ,
+  "WALLET": "",
+  "WHITELIST_ADMIN": "",
+  "DISBURSEMENTS": [
+    {
+      "address": "",
+      "amount": ,
+      "duration": 
+    }
+  ]
+}
