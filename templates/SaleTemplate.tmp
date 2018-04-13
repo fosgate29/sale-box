@@ -7,19 +7,19 @@ contract <%= SALE_NAME %>Sale is Sale {
 
     function <%= SALE_NAME %>Sale() 
         Sale(
-            <%= TOTAL_SALE_CAP %> ether,
-            <%= MIN_CONTRIBUTION %> ether,
-            <%= MIN_THRESHOLD %> ether,
-            <%= MAX_TOKENS %> * (10 ** <%= TOKEN_DECIMALS %>),
-            <%= WHITELIST_ADMIN %>,
-            <%= WALLET %>,
-            <%= CLOSING_DURATION %> days,
-            <%= VAULT_INITIAL_AMOUNT %> ether,
-            <%= VAULT_DISBURSEMENT_AMOUNT %> ether,
-            <%= START_TIME %>,
-            "<%= SALE_NAME %>",
-            "<%= TOKEN_SYMBOL %>", 
-            <%= TOKEN_DECIMALS %>
+            <%= TOTAL_SALE_CAP %> ether, // Total sale cap
+            <%= MIN_CONTRIBUTION %> ether, // Min contribution
+            <%= MIN_THRESHOLD %> ether, // Min threshold
+            <%= MAX_TOKENS %> * (10 ** <%= TOKEN_DECIMALS %>), // Max tokens * 10 * Token decimals
+            <%= WHITELIST_ADMIN %>, // Whitelist Admin
+            <%= WALLET %>, // Wallet
+            <%= CLOSING_DURATION %> days, // Closing duration
+            <%= VAULT_INITIAL_AMOUNT %> ether, // Vault initial amount
+            <%= VAULT_DISBURSEMENT_AMOUNT %> ether, // Vault disbursement amount
+            <%= START_TIME %>, // Start time
+            "<%= SALE_NAME %>", // Token name
+            "<%= TOKEN_SYMBOL %>",  // Token symbol
+            <%= TOKEN_DECIMALS %> // Token decimals
         ) 
         public 
     {
