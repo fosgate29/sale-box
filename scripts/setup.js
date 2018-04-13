@@ -17,19 +17,14 @@ createSaleFiles = () => {
 
   const saleSourceCode = ejs.compile(saleTemplate)(saleParameters);
 
-  // Create Token File
-  const tokenTemplate  = read(join(__dirname, '../templates/TokenTemplate.tmp'), 'utf8');
-  const tokenSourceCode = ejs.compile(tokenTemplate)(saleParameters);
-
   // Create Migrations File
   const migrationsTemplate  = read(join(__dirname, '../templates/2_deploy_contracts.tmp'), 'utf8');
   const migrationsFile = ejs.compile(migrationsTemplate)(saleParameters);
 
   fs.writeFileSync(`./contracts/${saleParameters.SALE_NAME}Sale.sol`, saleSourceCode);
-  fs.writeFileSync(`./contracts/${saleParameters.SALE_NAME}Token.sol`, tokenSourceCode);
   fs.writeFileSync('./migrations/2_deploy_contracts.js', migrationsFile);
 
-  console.log(`${saleParameters.SALE_NAME} sale files were created.`);
+  console.log(`${saleParameters.SALE_NAME} sale file was created.`);
 }
 
 /*

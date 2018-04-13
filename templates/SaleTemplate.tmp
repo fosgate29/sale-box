@@ -2,53 +2,31 @@ pragma solidity 0.4.19;
 
 import "@tokenfoundry/sale-contracts/contracts/Sale.sol";
 
-import "./<%= SALE_NAME %>Token.sol";
 
 contract <%= SALE_NAME %>Sale is Sale {
-    uint256 public constant TOTAL_SALE_CAP = <%= TOTAL_SALE_CAP %> ether;
-    uint256 public constant MIN_CONTRIBUTION = <%= MIN_CONTRIBUTION %> ether;
-    uint256 public constant MIN_THRESHOLD = <%= MIN_THRESHOLD %> ether;
-    uint256 public constant MAX_TOKENS = <%= MAX_TOKENS %> * (10 ** <%= TOKEN_DECIMALS %>);
-
-    address public constant WHITELIST_ADMIN = <%= WHITELIST_ADMIN %>;
-
-    uint256 public constant CLOSING_DURATION = <%= CLOSING_DURATION %> days;
-    uint256 public constant VAULT_INITIAL_AMOUNT = <%= VAULT_INITIAL_AMOUNT %> ether;
-    uint256 public constant VAULT_DISBURSEMENT_AMOUNT = <%= VAULT_DISBURSEMENT_AMOUNT %> ether;
-
-    uint256 public constant START_TIME = <%= START_TIME %>;
-
-    address public constant WALLET = <%= WALLET %>;
 
     function <%= SALE_NAME %>Sale() 
         Sale(
-            TOTAL_SALE_CAP,
-            MIN_CONTRIBUTION,
-            MIN_THRESHOLD,
-            MAX_TOKENS,
-            WHITELIST_ADMIN,
-            WALLET,
-            CLOSING_DURATION,
-            VAULT_INITIAL_AMOUNT,
-            VAULT_DISBURSEMENT_AMOUNT,
-            START_TIME
+            <%= TOTAL_SALE_CAP %> ether, // Total sale cap
+            <%= MIN_CONTRIBUTION %> ether, // Min contribution
+            <%= MIN_THRESHOLD %> ether, // Min threshold
+            <%= MAX_TOKENS %> * (10 ** <%= TOKEN_DECIMALS %>), // Max tokens * 10 * Token decimals
+            <%= WHITELIST_ADMIN %>, // Whitelist Admin
+            <%= WALLET %>, // Wallet
+            <%= CLOSING_DURATION %> days, // Closing duration
+            <%= VAULT_INITIAL_AMOUNT %> ether, // Vault initial amount
+            <%= VAULT_DISBURSEMENT_AMOUNT %> ether, // Vault disbursement amount
+            <%= START_TIME %>, // Start time
+            "<%= SALE_NAME %>", // Token name
+            "<%= TOKEN_SYMBOL %>",  // Token symbol
+            <%= TOKEN_DECIMALS %> // Token decimals
         ) 
         public 
     {
-        
+        <% if (DISBURSEMENTS.length) { %>
+            <% DISBURSEMENTS.forEach((disbursement, i) => { %>
+                setupDisbursement(<%= disbursement.address %>, <%= disbursement.amount %> * (10 ** <%= TOKEN_DECIMALS %>), <%= disbursement.duration %>);
+            <% }) %>
+        <% } %>
     }
-
-    function createToken(uint256 _maxTokens) internal returns (Token) {
-        return new <%= SALE_NAME %>Token(_maxTokens);
-    }
- 
-    <% if (DISBURSEMENTS.length) { %>
-    function getDisbursements() internal pure returns(Disbursement[] disbursements) {
-        disbursements = new Disbursement[](<%= DISBURSEMENTS.length %>);
-        <% DISBURSEMENTS.forEach((disbursement, i) => { %>
-        disbursements[<%= i %>] = Disbursement(<%= disbursement.address %>, <%= disbursement.amount %> * (10 ** <%= TOKEN_DECIMALS %>), <%= disbursement.duration %>);
-        <% }) %>
-    }
-    <% } %>
-
 }
