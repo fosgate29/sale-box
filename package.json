@@ -12,13 +12,16 @@
     "lint": "eslint .",
     "migrate": "truffle migrate",
     "setup": "node ./scripts/setup.js && rm -rf ./templates",
-    "test": "truffle test"
+    "test": "truffle test",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "license": "MIT",
   "dependencies": {
     "@tokenfoundry/sale-contracts": "1.0.10",
     "@tokenfoundry/token-contracts": "0.2.11",
-    "zeppelin-solidity": "1.7.0"
+    "zeppelin-solidity": "1.7.0",
+    "snyk": "^1.80.1"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.2",
@@ -41,5 +44,6 @@
     "presets": [
       "env"
     ]
-  }
+  },
+  "snyk": true
 }
